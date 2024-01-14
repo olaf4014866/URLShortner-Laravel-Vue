@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShortURLController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/url-shortner', function () {
+    return Inertia::render('ShortURL', []);
+})->name('url-shortner');
+
+Route::get('/url', [ShortURLController::class, 'toURL'])->name('shorturl.redirect');
+Route::post('/url-shortner', [ShortURLController::class, 'save'])->name('shorturl.save');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
